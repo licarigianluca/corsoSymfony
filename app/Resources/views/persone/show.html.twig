@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <h1>Persone</h1>
+    {#{{ dump() }}#}
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ persone.id }}</td>
+            </tr>
+            <tr>
+                <th>Nome</th>
+                <td>{{ persone.nome }}</td>
+            </tr>
+            <tr>
+                <th>Cognome</th>
+                <td>{{ persone.cognome }}</td>
+            </tr>
+            <tr>
+                <th>Datanascita</th>
+                <td>{% if persone.dataNascita %}{{ persone.dataNascita|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Codicefiscale</th>
+                <td>{{ persone.codiceFiscale }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('persone_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('persone_edit', { 'id': persone.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
