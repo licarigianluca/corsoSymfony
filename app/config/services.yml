@@ -7,3 +7,17 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+
+    log_example:
+                class: AppBundle\Services\LogExample
+                arguments:
+                          logger: "@logger"
+                tags:
+                      - { name: monolog.logger, channel: example }
+
+    servizio_ricerca:
+                class: AppBundle\Services\ServizioCerca
+                arguments:
+                      em: "@doctrine.orm.entity_manager"
+                      session: "@session"
+                      log: "@log_example"

@@ -143,22 +143,11 @@ class PersoneController extends Controller
      */
     public function esercizioAction($cognome)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $persones = $em->getRepository('AppBundle:Persone')->findAll();
-//        $persones = $em->getRepository('AppBundle:Persone')->findOneByCognome($cognome);
-
-        $flagTrovato = count($persones);
-
-        foreach ($persones as $persona){
-            $persona->setCognome('licari');
-        }
-        $em->flush();
-
+       
+        $persones = $this->get('servizio_ricerca')->DBmanager();
 
         return $this->render('persone/indexEsercizio.html.twig', array(
             'persones' => $persones,
-            'trovato' => $flagTrovato,
             'parametro' => $cognome,
         ));
     }
