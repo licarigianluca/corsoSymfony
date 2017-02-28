@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col-sm-12">
+
+
+        <div class="row">
+            <div class="col-sm-12">
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Cognome</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{ dump() }}
+                    {% for persona in persone %}
+                        <tr>
+                            <td>{{ persona.nome }}</td>
+                            <td>{{ persona.cognome }}</td>
+
+
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
