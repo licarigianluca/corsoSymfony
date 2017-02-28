@@ -3,6 +3,9 @@
 {% block body %}
     <h1>Persones list</h1>
 {{ stampaTabella(persones)}}
+
+
+    <h1>eliminare la tabella qui sotto</h1>
     <table>
         <thead>
             <tr>
@@ -36,7 +39,7 @@
         {% endfor %}
         </tbody>
     </table>
-
+<h1>fino a qua</h1>
     <ul>
         <li>
             <a href="{{ path('persone_new') }}">Create a new persone</a>
