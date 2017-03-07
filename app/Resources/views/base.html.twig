@@ -3,13 +3,49 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        {% block stylesheets %}
+            <link href="{{ asset('bundles/app/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+            <link href="{{ asset('bundles/app/css/select2.min.css') }}" rel="stylesheet" type="text/css">
+            <link href="{{ asset('bundles/app/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
+            <link href="{{ asset('bundles/app/css/pleiade.css') }}" rel="stylesheet" type="text/css">
 
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        {% endblock %}
+
+
+
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+
+        {% block body %}
+
+
+        {% endblock %}
+
+
+        {% include 'Template/formModal.html.twig' %}
+
+
+        {% block javascripts %}
+            <script src="{{ asset('bundles/app/js/jquery.min.js') }}"></script>
+            <script src="{{ asset('bundles/app/js/jquery-ui.min.js') }}"></script>
+            <script src="{{ asset('bundles/app/js/jquery.chained.min.js') }}"></script>
+            <script src="{{ asset('bundles/app/js/bootstrap-notify.min.js') }}"></script>
+            <script src="{{ asset('bundles/app/js/tether.min.js') }}"></script>
+            <script src="{{ asset('bundles/app/js/bootstrap.min.js') }}"></script>
+            <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+            <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+            <script src="{{ asset('bundles/app/js/plugin/notify/bootstrap-notify.min.js') }}"></script>
+            {#<script src="{{ asset('bundles/app/js/plugin/select2/select2.min.js') }}"></script>#}
+            {#<script src="{{ asset('bundles/app/js/plugin/select2/it.js') }}"></script>#}
+            <script src="{{ asset('bundles/app/js/plugin/bootstrap-datepicker-1.6.1-dist/js/bootstrap-datepicker.min.js') }}"></script>
+            <script src="{{ asset('bundles/app/js/plugin/bootstrap-datepicker-1.6.1-dist/locales/bootstrap-datepicker.it.min.js') }}"></script>
+            <script src="{{ asset('bundles/app/js/functions.js') }}"></script>
+
+        {% endblock %}
+
+
+
+
+
     </body>
 </html>

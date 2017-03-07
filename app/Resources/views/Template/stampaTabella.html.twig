@@ -10,15 +10,43 @@
                     <tr>
                         <th>Nome</th>
                         <th>Cognome</th>
+                        <th>Data Nascita</th>
+                        <th>CF</th>
+                        <th>Azioni</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {{ dump() }}
+                    {#{{ dump() }}#}
                     {% for persona in persone %}
                         <tr>
                             <td>{{ persona.nome }}</td>
                             <td>{{ persona.cognome }}</td>
+                            <td>{{ persona.dataNascita | date('d/m/Y')}}</td>
+                            <td>{{ persona.codiceFiscale }}</td>
+                            <td>
+                                <ul>
+                                    <li>
+                                        {#<a href="{{ path('persone_show', { 'id': persona.id }) }}">show</a>#}
+                                        <a href="#"
 
+                                           onclick="loadFormIntoModal(Routing.generate('persone_show',{id:{{ persona.id }}}));"
+
+
+
+                                        >show</a>
+
+                                    </li>
+                                    <li>
+                                        <a href="#"
+
+                                           onclick="loadFormIntoModal(Routing.generate('persone_edit',{id:{{ persona.id }}}));"
+
+
+
+                                        >edit</a>
+                                    </li>
+                                </ul>
+                            </td>
 
                         </tr>
                     {% endfor %}

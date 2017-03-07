@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
     <h1>Persones list</h1>
+    <div class="panel-body">
 {{ stampaTabella(persones)}}
 
 
-    <h1>eliminare la tabella qui sotto</h1>
+   {# <h1>eliminare la tabella qui sotto</h1>
     <table>
         <thead>
             <tr>
@@ -39,10 +41,20 @@
         {% endfor %}
         </tbody>
     </table>
-<h1>fino a qua</h1>
+<h1>fino a qua</h1>#}
+
+
+
+</div>
     <ul>
         <li>
-            <a href="{{ path('persone_new') }}">Create a new persone</a>
+            <a href="#"
+
+               onclick="loadFormIntoModal(Routing.generate('persone_new'));"
+
+
+
+            >New</a>
         </li>
     </ul>
 {% endblock %}

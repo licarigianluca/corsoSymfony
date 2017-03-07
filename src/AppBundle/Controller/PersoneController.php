@@ -18,7 +18,7 @@ class PersoneController extends Controller
     /**
      * Lists all persone entities.
      *
-     * @Route("/", name="persone_index")
+     * @Route("/", name="persone_index",options={"expose"=true})
      * @Method("GET")
      */
     public function indexAction()
@@ -35,13 +35,23 @@ class PersoneController extends Controller
     /**
      * Creates a new persone entity.
      *
-     * @Route("/new", name="persone_new")
+     * @Route("/new", name="persone_new",options={"expose"=true})
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
     {
         $persone = new Persone();
-        $form = $this->createForm('AppBundle\Form\PersoneType', $persone);
+//        $form = $this->createForm('AppBundle\Form\PersoneType', $persone);
+
+
+
+
+
+        $form = $this->createForm('AppBundle\Form\PersoneType', $persone,array(
+            'action' => $this->generateUrl('persone_new')));
+
+
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -49,7 +59,7 @@ class PersoneController extends Controller
             $em->persist($persone);
             $em->flush($persone);
 
-            return $this->redirectToRoute('persone_show', array('id' => $persone->getId()));
+            return $this->redirect($this->generateUrl('persone_index'));
         }
 
         return $this->render('persone/new.html.twig', array(
@@ -61,7 +71,7 @@ class PersoneController extends Controller
     /**
      * Finds and displays a persone entity.
      *
-     * @Route("/{id}", name="persone_show")
+     * @Route("/{id}", name="persone_show", options={"expose"=true})
      * @Method("GET")
      */
     public function showAction(Persone $persone)
@@ -77,32 +87,43 @@ class PersoneController extends Controller
     /**
      * Displays a form to edit an existing persone entity.
      *
-     * @Route("/{id}/edit", name="persone_edit")
+     * @Route("/{id}/edit", name="persone_edit",options={"expose"=true})
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Persone $persone)
     {
-        $deleteForm = $this->createDeleteForm($persone);
-        $editForm = $this->createForm('AppBundle\Form\PersoneType', $persone);
-        $editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+//        $form = $this->createForm('AppBundle\Form\PersoneType', $persone);
 
-            return $this->redirectToRoute('persone_edit', array('id' => $persone->getId()));
+
+
+
+
+        $form = $this->createForm('AppBundle\Form\PersoneType', $persone,array(
+            'action' => $this->generateUrl('persone_edit',array('id'=>$persone->getId()))));
+
+
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
+            $em->flush($persone);
+
+            return $this->redirect($this->generateUrl('persone_index'));
         }
 
         return $this->render('persone/edit.html.twig', array(
             'persone' => $persone,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'form' => $form->createView(),
         ));
     }
 
     /**
      * Deletes a persone entity.
      *
-     * @Route("/{id}", name="persone_delete")
+     * @Route("/{id}", name="persone_delete",options={"expose"=true})
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Persone $persone)
