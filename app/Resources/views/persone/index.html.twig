@@ -1,60 +1,17 @@
-{% extends 'base.html.twig' %}
-
-{% block body %}
-
-    <h1>Persones list</h1>
-    <div class="panel-body">
-{{ stampaTabella(persones)}}
-
-
-   {# <h1>eliminare la tabella qui sotto</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nome</th>
-                <th>Cognome</th>
-                <th>Datanascita</th>
-                <th>Codicefiscale</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for persone in persones %}
-            <tr>
-                <td><a href="{{ path('persone_show', { 'id': persone.id }) }}">{{ persone.id }}</a></td>
-                <td>{{ persone.nome }}</td>
-                <td>{{ persone.cognome }}</td>
-                <td>{% if persone.dataNascita %}{{ persone.dataNascita|date('Y-m-d') }}{% endif %}</td>
-                <td>{{ persone.codiceFiscale }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('persone_show', { 'id': persone.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('persone_edit', { 'id': persone.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-<h1>fino a qua</h1>#}
-
+<h1>Persones list</h1>
+<div class="panel-body">
+    {{ stampaTabella(persones) }}
 
 
 </div>
-    <ul>
-        <li>
-            <a href="#"
+<ul>
+    <li>
+        <a href="#"
 
-               onclick="loadFormIntoModal(Routing.generate('persone_new'));"
+           onclick="loadFormIntoModal(Routing.generate('persone_new'));"
 
 
+        >New</a>
+    </li>
+</ul>
 
-            >New</a>
-        </li>
-    </ul>
-{% endblock %}

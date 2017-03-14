@@ -1,3 +1,7 @@
+{% set route = path(app.request.attributes.get('_route')) %}
+
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,13 +20,15 @@
     </head>
     <body>
 
-        {% block body %}
+        <div class="panel-body">
 
 
-        {% endblock %}
+
+        </div>
 
 
         {% include 'Template/formModal.html.twig' %}
+        {% include 'Template/confirmModal.html.twig' %}
 
 
         {% block javascripts %}
@@ -41,6 +47,16 @@
             <script src="{{ asset('bundles/app/js/plugin/bootstrap-datepicker-1.6.1-dist/locales/bootstrap-datepicker.it.min.js') }}"></script>
             <script src="{{ asset('bundles/app/js/functions.js') }}"></script>
 
+
+
+            <script>
+                $(document).ready(function(){
+
+
+                    init('{{ app.request.get('_route') }}');
+
+                })
+            </script>
         {% endblock %}
 
 

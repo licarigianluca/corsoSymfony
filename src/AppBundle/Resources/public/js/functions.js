@@ -4,7 +4,7 @@ function init(route) {
 
 
 
-    // loadShowIntoPanel(route);
+     loadIndexIntoPanel(route);
 
 }
 
@@ -25,6 +25,32 @@ function loadShowIntoPanel(route) {
             'nomeScheda': myApp.getNomeScheda(),
             'idCartella': myApp.getIdCartella()
         }),
+        type: 'GET',
+
+        success: function (data) {
+
+            myApp.updatePanel(data);
+
+        },
+        error: function (jqXHR) {
+            if (401 === jqXHR.status) {
+            }
+            myApp.hideFormModal();
+            myApp.createNotifyError(jqXHR.responseText);
+        }
+
+    });
+
+
+}
+
+function loadIndexIntoPanel(route) {
+    myApp.resetPanel();
+    console.log(route);
+
+    var prefix = myApp.getRoutePrefix();
+    $.ajax({
+        url: Routing.generate(prefix + '_index'),
         type: 'GET',
 
         success: function (data) {
@@ -138,6 +164,7 @@ function loadFormIntoModal(url) {
         success: function (data) {
 
             myApp.updateFormModal(data);
+            //enableDatePicker();
             adjustCssSelect2();
             myApp.showFormModal();
 
@@ -231,8 +258,8 @@ function handleClick(o, event) {
             myApp.hideFormModal();
             $(o).prop("disabled", false);
             $(o).button('reset');
-            // loadShowIntoPanel(myApp.getRoute());
-            $('.panel-body').html(data);
+            loadIndexIntoPanel(myApp.getRoute());
+            //$('.panel-body').html(data);
 
         },
         error: function (jqXHR) {

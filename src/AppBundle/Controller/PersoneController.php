@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Persone controller.
@@ -18,7 +19,20 @@ class PersoneController extends Controller
     /**
      * Lists all persone entities.
      *
-     * @Route("/", name="persone_index",options={"expose"=true})
+     * @Route("/", name="persone_init",options={"expose"=true})
+     * @Method("GET")
+     */
+    public function initAction()
+    {
+
+        return $this->render('base.html.twig');
+    }
+
+
+    /**
+     * Lists all persone entities.
+     *
+     * @Route("/index", name="persone_index",options={"expose"=true})
      * @Method("GET")
      */
     public function indexAction()
@@ -27,7 +41,7 @@ class PersoneController extends Controller
 
         $persones = $em->getRepository('AppBundle:Persone')->findAll();
 
-        return $this->render('persone/index.html.twig', array(
+        return $this->render(':persone:index.html.twig', array(
             'persones' => $persones,
         ));
     }
@@ -44,22 +58,40 @@ class PersoneController extends Controller
 //        $form = $this->createForm('AppBundle\Form\PersoneType', $persone);
 
 
-
-
-
-        $form = $this->createForm('AppBundle\Form\PersoneType', $persone,array(
+        $form = $this->createForm('AppBundle\Form\PersoneType', $persone, array(
             'action' => $this->generateUrl('persone_new')));
-
 
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($persone);
-            $em->flush($persone);
+//        if ($form->isSubmitted() && $form->isValid()) {
+//
+//
+//
+//
+//            $em = $this->getDoctrine()->getManager();
+//            $em->persist($persone);
+//            $em->flush($persone);
+//
+//            return $this->redirect($this->generateUrl('persone_index'));
+//        }
 
-            return $this->redirect($this->generateUrl('persone_index'));
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($persone);
+                $em->flush($persone);
+
+                return $this->redirect($this->generateUrl('persone_index'));
+            } else {
+                return new Response(
+                    $this->renderView(':persone:new.html.twig', array(
+                        'persone' => $persone,
+                        'form' => $form->createView()
+                    ))
+                    , 409);
+            }
         }
 
         return $this->render('persone/new.html.twig', array(
@@ -68,21 +100,21 @@ class PersoneController extends Controller
         ));
     }
 
-    /**
-     * Finds and displays a persone entity.
-     *
-     * @Route("/{id}", name="persone_show", options={"expose"=true})
-     * @Method("GET")
-     */
-    public function showAction(Persone $persone)
-    {
-        $deleteForm = $this->createDeleteForm($persone);
-
-        return $this->render('persone/show.html.twig', array(
-            'persone' => $persone,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
+//    /**
+//     * Finds and displays a persone entity.
+//     *
+//     * @Route("/{id}", name="persone_show", options={"expose"=true})
+//     * @Method("GET")
+//     */
+//    public function showAction(Persone $persone)
+//    {
+//        $deleteForm = $this->createDeleteForm($persone);
+//
+//        return $this->render('persone/show.html.twig', array(
+//            'persone' => $persone,
+//            'delete_form' => $deleteForm->createView(),
+//        ));
+//    }
 
     /**
      * Displays a form to edit an existing persone entity.
@@ -96,22 +128,27 @@ class PersoneController extends Controller
 //        $form = $this->createForm('AppBundle\Form\PersoneType', $persone);
 
 
-
-
-
-        $form = $this->createForm('AppBundle\Form\PersoneType', $persone,array(
-            'action' => $this->generateUrl('persone_edit',array('id'=>$persone->getId()))));
-
+        $form = $this->createForm('AppBundle\Form\PersoneType', $persone, array(
+            'action' => $this->generateUrl('persone_edit', array('id' => $persone->getId()))));
 
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
 
-            $em->flush($persone);
+                $em->flush($persone);
 
-            return $this->redirect($this->generateUrl('persone_index'));
+                return $this->redirect($this->generateUrl('persone_index'));
+            } else {
+                return new Response(
+                    $this->renderView(':persone:edit.html.twig', array(
+                        'persone' => $persone,
+                        'form' => $form->createView()
+                    ))
+                    , 409);
+            }
         }
 
         return $this->render('persone/edit.html.twig', array(
@@ -152,8 +189,7 @@ class PersoneController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('persone_delete', array('id' => $persone->getId())))
             ->setMethod('DELETE')
-            ->getForm()
-            ;
+            ->getForm();
     }
 
     /**
@@ -164,7 +200,7 @@ class PersoneController extends Controller
      */
     public function esercizioAction($cognome)
     {
-       
+
         $persones = $this->get('servizio_ricerca')->DBmanager();
 
         return $this->render('persone/indexEsercizio.html.twig', array(
