@@ -51,6 +51,9 @@ class PersoneController extends Controller
      *
      * @Route("/new", name="persone_new",options={"expose"=true})
      * @Method({"GET", "POST"})
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function newAction(Request $request)
     {
@@ -79,9 +82,11 @@ class PersoneController extends Controller
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
 
+                /* @var $em \Doctrine\ORM\EntityManager */
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($persone);
                 $em->flush($persone);
+
 
                 return $this->redirect($this->generateUrl('persone_index'));
             } else {
@@ -121,6 +126,9 @@ class PersoneController extends Controller
      *
      * @Route("/{id}/edit", name="persone_edit",options={"expose"=true})
      * @Method({"GET", "POST"})
+     * @param Request $request
+     * @param Persone $persone
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function editAction(Request $request, Persone $persone)
     {
@@ -136,6 +144,8 @@ class PersoneController extends Controller
 
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
+
+                /* @var $em \Doctrine\ORM\EntityManager */
                 $em = $this->getDoctrine()->getManager();
 
                 $em->flush($persone);
@@ -162,6 +172,9 @@ class PersoneController extends Controller
      *
      * @Route("/{id}", name="persone_delete",options={"expose"=true})
      * @Method("DELETE")
+     * @param Request $request
+     * @param Persone $persone
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Request $request, Persone $persone)
     {
@@ -169,6 +182,7 @@ class PersoneController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /* @var $em \Doctrine\ORM\EntityManager */
             $em = $this->getDoctrine()->getManager();
             $em->remove($persone);
             $em->flush($persone);
@@ -197,6 +211,8 @@ class PersoneController extends Controller
      *
      * @Route("/{cognome}/esercizio", name="persone_esercizio")
      * @Method("GET")
+     * @param $cognome
+     * @return Response
      */
     public function esercizioAction($cognome)
     {
