@@ -12,6 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Constraints\Regex;
+use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 
 
 class PersoneType extends AbstractType
@@ -22,11 +23,27 @@ class PersoneType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('idGruppo', EntityType::class, array(
-                'class' => 'AppBundle:Gruppi',
-                'choice_label' => 'descrizione',
-                'placeholder' => 'selezionare un gruppo',
-                'constraints' => new NotNull(array('message' => 'campo obbligatorio'))))
+//            ->add('idGruppo', EntityType::class, array(
+//                'class' => 'AppBundle:Gruppi',
+//                'choice_label' => 'descrizione',
+//                'placeholder' => 'selezionare un gruppo',
+//                'constraints' => new NotNull(array('message' => 'campo obbligatorio'))))
+            ->add('idGruppo', Select2EntityType::class, [
+                'multiple' => false,
+                'remote_route' => 'select2_gruppi',
+                'class' => 'AppBundle\Entity\Gruppi',
+                'primary_key' => 'id',
+                'text_property' => 'descrizione',
+                'minimum_input_length' => 2,
+                'page_limit' => 10,
+                'allow_clear' => true,
+                'delay' => 250,
+                'cache' => true,
+                'cache_timeout' => 60000, // if 'cache' is true
+                'language' => 'en',
+                'placeholder' => 'Seleziona un gruppo',
+                // 'em' => $entityManager, // inject a custom entity manager
+            ])
             ->add('nome')
             ->add('cognome')
             ->add('dataNascita', DateType::class, array(
