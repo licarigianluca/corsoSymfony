@@ -2,8 +2,6 @@ function init(route) {
 
     myApp.setRoute(route);
 
-
-
      loadIndexIntoPanel(route);
 
 }

@@ -22,6 +22,17 @@ class Persone
     private $id;
 
     /**
+     * @var Gruppi
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Gruppi")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_gruppo", referencedColumnName="id")
+     * })
+     */
+    private $idGruppo;
+
+
+    /**
      * @var string
      *
      * @ORM\Column(name="nome", type="string", length=255)
@@ -177,6 +188,22 @@ class Persone
     public function setEmail($email)
     {
         $this->email = $email;
+    }
+
+    /**
+     * @return Gruppi
+     */
+    public function getIdGruppo()
+    {
+        return $this->idGruppo;
+    }
+
+    /**
+     * @param Gruppi $idGruppo
+     */
+    public function setIdGruppo($idGruppo)
+    {
+        $this->idGruppo = $idGruppo;
     }
 
 

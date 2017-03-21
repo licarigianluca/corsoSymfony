@@ -41,6 +41,10 @@ class PersoneController extends Controller
 
         $persones = $em->getRepository('AppBundle:Persone')->findAll();
 
+
+//        $this->get('servizio_ricerca')->DBmanager();
+
+
         return $this->render(':persone:index.html.twig', array(
             'persones' => $persones,
         ));

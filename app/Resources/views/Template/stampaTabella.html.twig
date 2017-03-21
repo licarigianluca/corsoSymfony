@@ -13,6 +13,7 @@
                         <th>Data Nascita</th>
                         <th>CF</th>
                         <th>email</th>
+                        <th>Gruppo</th>
                         <th>Azioni</th>
                     </tr>
                     </thead>
@@ -22,9 +23,14 @@
                         <tr>
                             <td>{{ persona.nome }}</td>
                             <td>{{ persona.cognome }}</td>
-                            <td>{{ persona.dataNascita | date('d/m/Y')}}</td>
+                            <td>{{ persona.dataNascita | date('d/m/Y') }}</td>
                             <td>{{ persona.codiceFiscale }}</td>
                             <td>{{ persona.email }}</td>
+
+                            <td>{% if persona.idGruppo !=null %}
+                                    {{ persona.idGruppo.descrizione }}
+                                {% endif %}
+                            </td>
                             <td>
                                 <ul>
                                     <li>
@@ -34,7 +40,6 @@
                                            onclick="loadFormIntoModal(Routing.generate('persone_show',{id:{{ persona.id }}}));"
 
 
-
                                         >show</a>
 
                                     </li>
@@ -42,7 +47,6 @@
                                         <a href="#"
 
                                            onclick="loadFormIntoModal(Routing.generate('persone_edit',{id:{{ persona.id }}}));"
-
 
 
                                         >edit</a>

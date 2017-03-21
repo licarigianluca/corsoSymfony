@@ -3,7 +3,7 @@
 namespace AppBundle\Form;
 
 
-
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -21,7 +21,13 @@ class PersoneType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nome')
+        $builder
+            ->add('idGruppo', EntityType::class, array(
+                'class' => 'AppBundle:Gruppi',
+                'choice_label' => 'descrizione',
+                'placeholder' => 'selezionare un gruppo',
+                'constraints' => new NotNull(array('message' => 'campo obbligatorio'))))
+            ->add('nome')
             ->add('cognome')
             ->add('dataNascita', DateType::class, array(
                 'input' => 'datetime',
@@ -37,16 +43,16 @@ class PersoneType extends AbstractType
             ))
             ->add('codiceFiscale')
             ->add('email', TextType::class, array(
-                'label' =>'email',
+                'label' => 'email',
                 'constraints' => new Regex(
-                array(
+                    array(
 
-                    'message' => "l'indirizzo '{{ value }}' non è un indirizzo email valido.",
-                    'pattern' => '/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/'
-                )
-            )));
+                        'message' => "l'indirizzo '{{ value }}' non è un indirizzo email valido.",
+                        'pattern' => '/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/'
+                    )
+                )));
     }
-    
+
     /**
      * {@inheritdoc}
      */

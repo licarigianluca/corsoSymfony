@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class ServizioCerca
 {
+
     private $em;
     private $session;
     private $log;
@@ -42,7 +43,7 @@ class ServizioCerca
     public function DBmanager(){
         
        $persones = $this->em->getRepository('AppBundle:Persone')->findAll();
-        ho
+
         $flagTrovato = count($persones);
         $this->log->log(' trovato '. $flagTrovato . ' ciao persone');
 
