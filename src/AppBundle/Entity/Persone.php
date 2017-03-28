@@ -24,7 +24,7 @@ class Persone
     /**
      * @var Gruppi
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Gruppi")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Gruppi",inversedBy="elencoPersone")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_gruppo", referencedColumnName="id")
      * })
@@ -77,6 +77,17 @@ class Persone
     {
         return $this->id;
     }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+
+
 
     /**
      * Set nome

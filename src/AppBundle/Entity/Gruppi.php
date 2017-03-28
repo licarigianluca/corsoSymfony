@@ -8,6 +8,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -35,6 +36,22 @@ class Gruppi
      * @ORM\Column(name="descrizione", type="string", length=255)
      */
     private $descrizione;
+
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Persone", mappedBy="idGruppo", cascade={"persist"})
+     *
+     */
+    private $elencoPersone;
+
+
+    public function __construct()
+    {
+        $this->elencoPersone = new ArrayCollection();
+
+    }
 
     /**
      * @return int
@@ -67,6 +84,26 @@ class Gruppi
     {
         $this->descrizione = $descrizione;
     }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getElencoPersone()
+    {
+        return $this->elencoPersone;
+    }
+
+//    /**
+//     * @param ArrayCollection $elencoPersone
+//     */
+//    public function setElencoPersone($elencoPersone)
+//    {
+//        $this->elencoPersone = $elencoPersone;
+//    }
+
+
+
+
 
 
 

@@ -209,19 +209,18 @@ function confirmDeletion(o, event) {
     var idScheda = $('#confirmDeleteId').attr('data');
 
     $.ajax({
-        url: Routing.generate(myApp.getRoute() + '_delete', {
-            'id': idScheda,
-            'nomeScheda': myApp.getNomeScheda(),
-            'idCartella': myApp.getIdCartella()
+        url: Routing.generate(myApp.getRoutePrefix() + '_delete', {
+            'id': idScheda
+
         }),
         type: 'DELETE',
 
-        success: function () {
+        success: function (data) {
 
             myApp.hideConfirmModal();
             $(o).prop("disabled", false);
             $(o).button('reset');
-            loadShowIntoPanel(myApp.getRoute());
+            loadIndexIntoPanel(myApp.getRoute());
 
 
         },

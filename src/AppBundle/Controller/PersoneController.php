@@ -171,44 +171,82 @@ class PersoneController extends Controller
         ));
     }
 
-    /**
-     * Deletes a persone entity.
-     *
-     * @Route("/{id}", name="persone_delete",options={"expose"=true})
-     * @Method("DELETE")
-     * @param Request $request
-     * @param Persone $persone
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     */
-    public function deleteAction(Request $request, Persone $persone)
-    {
-        $form = $this->createDeleteForm($persone);
-        $form->handleRequest($request);
+//    /**
+//     * Deletes a persone entity.
+//     *
+//     * @Route("/{id}", name="persone_delete",options={"expose"=true})
+//     * @Method("DELETE")
+//     * @param Request $request
+//     * @param Persone $persone
+//     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+//     */
+//    public function deleteAction(Request $request, Persone $persone)
+//    {
+//        $form = $this->createDeleteForm($persone);
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            /* @var $em \Doctrine\ORM\EntityManager */
+//            $em = $this->getDoctrine()->getManager();
+//            $em->remove($persone);
+//            $em->flush($persone);
+//        }
+//
+//        return $this->redirectToRoute('persone_index');
+//    }
+//
+//    /**
+//     * Creates a form to delete a persone entity.
+//     *
+//     * @param Persone $persone The persone entity
+//     *
+//     * @return \Symfony\Component\Form\Form The form
+//     */
+//    private function createDeleteForm(Persone $persone)
+//    {
+//        return $this->createFormBuilder()
+//            ->setAction($this->generateUrl('persone_delete', array('id' => $persone->getId())))
+//            ->setMethod('DELETE')
+//            ->getForm();
+//    }
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            /* @var $em \Doctrine\ORM\EntityManager */
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($persone);
-            $em->flush($persone);
+
+    /**
+     * Deletes a oncologiascheda entity.
+     *
+     * @Route("/{id}/delete", name="persone_delete", options={"expose"=true})
+     * @Method({"GET","DELETE"})
+     *
+     * @param Request $request
+     * @param Persone $persona
+     *
+     * @return Response
+     */
+    public function deleteAction(Request $request,Persone $persona)
+    {
+
+
+
+        /* @var $em \Doctrine\ORM\EntityManager */
+        $em = $this->getDoctrine()->getManager();
+
+
+
+        if ($request->getMethod() == 'DELETE') {
+
+            $em->remove($persona);
+            $em->flush();
+
+//            return $this->redirect($this->generateUrl('persone_index'));
+            return $this->indexAction();
         }
 
-        return $this->redirectToRoute('persone_index');
+        return $this->render(':persone:delete.html.twig', array(
+            'entity' => $persona
+
+        ));
     }
 
-    /**
-     * Creates a form to delete a persone entity.
-     *
-     * @param Persone $persone The persone entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm(Persone $persone)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('persone_delete', array('id' => $persone->getId())))
-            ->setMethod('DELETE')
-            ->getForm();
-    }
 
     /**
      *

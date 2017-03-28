@@ -28,21 +28,22 @@
                             <td>{{ persona.email }}</td>
 
                             <td>{% if persona.idGruppo !=null %}
-                                    {{ persona.idGruppo.descrizione }}
+                                    <a href="#"
+
+                                       onclick="loadFormIntoModal(Routing.generate('gruppi_edit',{id:{{ persona.idGruppo.id }}}));"
+
+
+                                    >{{ persona.idGruppo.descrizione }} </a>
+
+                                    <br># {{  persona.idGruppo.elencoPersone | length}}
+                                    {#<br>elenco:<br>#}
+
+
                                 {% endif %}
                             </td>
                             <td>
                                 <ul>
-                                    <li>
-                                        {#<a href="{{ path('persone_show', { 'id': persona.id }) }}">show</a>#}
-                                        <a href="#"
 
-                                           onclick="loadFormIntoModal(Routing.generate('persone_show',{id:{{ persona.id }}}));"
-
-
-                                        >show</a>
-
-                                    </li>
                                     <li>
                                         <a href="#"
 
@@ -50,6 +51,14 @@
 
 
                                         >edit</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"
+
+                                           onclick="loadConfirmModal(Routing.generate('persone_delete',{id:{{ persona.id }}}))"
+
+
+                                        >cancella</a>
                                     </li>
                                 </ul>
                             </td>
