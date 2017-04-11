@@ -54,7 +54,7 @@ class PersoneType extends AbstractType
                 'html5' => false,
                 'attr' => array(
                     'class' => 'date',
-                    'value' => (new \DateTime('now'))->modify('+2 year')->format('d/m/Y')
+                    'value' => (new \DateTime('now'))->modify('-32 year')->format('d/m/Y')
                 ),
                 'constraints' => new NotNull(array('message' => 'campo obbligatorio'))
             ))

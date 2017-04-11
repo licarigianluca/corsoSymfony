@@ -33,6 +33,18 @@ class Persone
 
 
     /**
+     * @var Squadre
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Squadre",inversedBy="elencoPersone")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_squadra", referencedColumnName="id")
+     * })
+     */
+    private $idSquadra;
+
+
+
+    /**
      * @var string
      *
      * @ORM\Column(name="nome", type="string", length=255)
@@ -216,6 +228,24 @@ class Persone
     {
         $this->idGruppo = $idGruppo;
     }
+
+    /**
+     * @return Squadre
+     */
+    public function getIdSquadra()
+    {
+        return $this->idSquadra;
+    }
+
+    /**
+     * @param Squadre $idSquadra
+     */
+    public function setIdSquadra($idSquadra)
+    {
+        $this->idSquadra = $idSquadra;
+    }
+
+
 
 
 

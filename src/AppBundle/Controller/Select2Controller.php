@@ -35,9 +35,9 @@ class Select2Controller extends Controller
         $termine = strtolower($request->query->get('q'));
         $data = [];
 
-        if (strlen($termine) < 2) {
+        /*if (strlen($termine) < 2) {
             return JsonResponse::create($data);
-        }
+        }*/
 
         /* @var $em \Doctrine\ORM\EntityManager */
         $em = $this->getDoctrine()->getManager();
