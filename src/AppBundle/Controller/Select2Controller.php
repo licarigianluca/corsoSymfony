@@ -30,27 +30,16 @@ class Select2Controller extends Controller
      */
     public function gruppiAction(Request $request)
     {
-
-
         $termine = strtolower($request->query->get('q'));
         $data = [];
-
-        /*if (strlen($termine) < 2) {
-            return JsonResponse::create($data);
-        }*/
-
-        /* @var $em \Doctrine\ORM\EntityManager */
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
-
         $query = $qb->select('g')
             ->from('AppBundle:Gruppi', 'g')
             ->where('UPPER(g.descrizione) LIKE UPPER(:descrizione)')
             ->setParameter('descrizione', '%' . $termine . '%')
             ->getQuery();
-
         $gruppi = $query->getResult();
-
         /**
          *
          * @var  $gruppo Gruppi
@@ -60,9 +49,7 @@ class Select2Controller extends Controller
                 $data[] = ['id' => $gruppo->getId(), 'text' => $gruppo->getDescrizione()];
             }
         }
-
         return JsonResponse::create($data);
-
     }
 
     /**
@@ -74,27 +61,16 @@ class Select2Controller extends Controller
      */
     public function personeAction(Request $request)
     {
-
-
         $termine = strtolower($request->query->get('q'));
         $data = [];
-
-        if (strlen($termine) < 2) {
-            return JsonResponse::create($data);
-        }
-
-        /* @var $em \Doctrine\ORM\EntityManager */
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
-
         $query = $qb->select('p')
             ->from('AppBundle:Persone', 'p')
             ->where('UPPER(p.cognome) LIKE UPPER(:descrizione)')
             ->setParameter('descrizione', '%' . $termine . '%')
             ->getQuery();
-
         $persone = $query->getResult();
-
         /**
          *
          * @var  $persona Persone
@@ -104,10 +80,35 @@ class Select2Controller extends Controller
                 $data[] = ['id' => $persona->getId(), 'text' => $persona->getPersone()];
             }
         }
-
         return JsonResponse::create($data);
-
     }
-
-
+    /**
+     * @Route("/squadre", name="select2_squadre")
+     * @Method("GET")
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response|static
+     */
+    public function squadreAction(Request $request)
+    {
+        $termine = strtolower($request->query->get('q'));
+        $data = [];
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->createQueryBuilder();
+        $query = $qb->select('s')
+            ->from('AppBundle:Squadre','s')
+            ->where('UPPER(s.nome) LIKE UPPER(:nome)')
+            ->setParameter('nome', '%' . $termine . '%')
+            ->getQuery();
+        $squadre = $query->getResult();
+        /**
+         * @var  $squadre Squadre
+         */
+        foreach ($squadre as $key => $squadra) {
+            if (strpos(strtolower($squadra->getDescrizione()), $termine) >= 0) {
+                $data[] = ['id' => $squadra->getId(), 'text' => $squadra->getNome()];
+            }
+        }
+        return JsonResponse::create($data);
+    }
 }

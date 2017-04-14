@@ -37,14 +37,12 @@ class Squadre
      */
     private $descrizione;
 
-
     /**
      * @var string
      *
      * @ORM\Column(name="nome", type="string", length=255)
      */
     private $nome;
-
 
     /**
      * @var ArrayCollection
@@ -53,14 +51,11 @@ class Squadre
      *
      */
     private $elencoPersone;
-
-
     public function __construct()
     {
         $this->elencoPersone = new ArrayCollection();
 
     }
-
     /**
      * @return int
      */

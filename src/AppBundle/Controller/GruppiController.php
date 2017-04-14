@@ -26,35 +26,21 @@ class GruppiController extends Controller
 
     /**
      * Displays a form to edit an existing persone entity.
-     *
      * @Route("/{id}/edit", name="gruppi_edit",options={"expose"=true})
      * @Method({"GET", "POST"})
-     *
-     *
      * @param Request $request
      * @param Gruppi $gruppo
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function editAction(Request $request, Gruppi $gruppo)
     {
-
-//        $form = $this->createForm('AppBundle\Form\PersoneType', $persone);
-
-
         $form = $this->createForm(GruppiType::class, $gruppo, array(
             'action' => $this->generateUrl('gruppi_edit', array('id' => $gruppo->getId()))));
-
-
         $form->handleRequest($request);
-
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
-
-                /* @var $em \Doctrine\ORM\EntityManager */
                 $em = $this->getDoctrine()->getManager();
-
                 $em->flush($gruppo);
-
                 return $this->redirect($this->generateUrl('persone_index'));
             } else {
                 return new Response(
@@ -65,7 +51,6 @@ class GruppiController extends Controller
                     , 409);
             }
         }
-
         return $this->render('gruppi/edit.html.twig', array(
             'gruppo' => $gruppo,
             'form' => $form->createView(),

@@ -24,11 +24,8 @@ class SquadreController extends Controller
      */
     public function initAction()
     {
-
         return $this->render('base.html.twig');
     }
-
-
     /**
      * Lists all squadre entities.
      *
@@ -38,13 +35,7 @@ class SquadreController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
         $squadres = $em->getRepository('AppBundle:Squadre')->findAll();
-
-
-//        $this->get('servizio_ricerca')->DBmanager();
-
-
         return $this->render(':squadre:index.html.twig', array(
             'pippes' => $squadres,
         ));
@@ -111,48 +102,42 @@ class SquadreController extends Controller
     /**
      * Displays a form to edit an existing persone entity.
      *
-     * @Route("/{id}/edit", name="persone_edit",options={"expose"=true})
+     * @Route("/{id}/edit", name="squadre_edit",options={"expose"=true})
      * @Method({"GET", "POST"})
      * @param Request $request
-     * @param Persone $persone
+     * @param Squadre $squadre
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
-//    public function editAction(Request $request, Persone $persone)
-//    {
-//
-////        $form = $this->createForm('AppBundle\Form\PersoneType', $persone);
-//
-//
-//        $form = $this->createForm('AppBundle\Form\PersoneType', $persone, array(
-//            'action' => $this->generateUrl('persone_edit', array('id' => $persone->getId()))));
-//
-//
-//        $form->handleRequest($request);
-//
-//        if ($form->isSubmitted()) {
-//            if ($form->isValid()) {
-//
-//                /* @var $em \Doctrine\ORM\EntityManager */
-//                $em = $this->getDoctrine()->getManager();
-//
-//                $em->flush($persone);
-//
-//                return $this->redirect($this->generateUrl('persone_index'));
-//            } else {
-//                return new Response(
-//                    $this->renderView(':persone:edit.html.twig', array(
-//                        'persone' => $persone,
-//                        'form' => $form->createView()
-//                    ))
-//                    , 409);
-//            }
-//        }
-//
-//        return $this->render('persone/edit.html.twig', array(
-//            'persone' => $persone,
-//            'form' => $form->createView(),
-//        ));
-//    }
+    public function editAction(Request $request, Squadre $squadre)
+    {
+        $form = $this->createForm('AppBundle\Form\SquadreType', $squadre, array(
+            'action' => $this->generateUrl('squadre_edit', array('id' => $squadre->getId()))));
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $persone=$squadre->getElencoPersone();
+                $em = $this->getDoctrine()->getManager();
+                $em->flush($squadre);
+                //foreach ($persone as $persona)
+                foreach ($persone as $key => $persona){
+                    $em->flush($persona);
+                }
+                return $this->redirect($this->generateUrl('squadre_index'));
+            } else {
+                return new Response(
+//                    $this->renderView(':squadre:error.html.twig', array(
+                    $this->renderView(':squadre:edit.html.twig', array(
+                        'squadre' => $squadre,
+                        'form' => $form->createView()
+                    ))
+                    , 409);
+            }
+        }
+        return $this->render('squadre/edit.html.twig', array(
+            'squadre' => $squadre,
+            'form' => $form->createView(),
+        ));
+    }
 
 //    /**
 //     * Deletes a persone entity.

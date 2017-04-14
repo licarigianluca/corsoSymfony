@@ -1,8 +1,6 @@
 <?php
 
 namespace AppBundle\Form;
-
-
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
@@ -15,7 +13,6 @@ use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Constraints\Regex;
 use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 
-
 class SquadreType extends AbstractType
 {
     /**
@@ -24,14 +21,23 @@ class SquadreType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('descrizione')
-            ->add('nome', TextType::class, array(
-                'label' => 'nome',
-                'constraints' => new NotNull(array('message' => 'campo obbligatorio'))
+            ->add('descrizione', TextType::class, array(
+                'label' => 'Descrizione',
+                'constraints' => new NotNull(array('message' => ' nome obbligatorio'))
 
             ))
-        ;
+            ->add('nome', TextType::class, array(
+                'label' => 'Nome',
+                'constraints' => new NotNull(array('message' => ' descrizione obbligatorio'))
 
+            ))
+            ->add('elencoPersone', CollectionType::class, array(
+                'entry_type' => PilotiType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                //'by_reference' => false
+            ))
+        ;
     }
 
     /**

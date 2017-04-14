@@ -21,13 +21,19 @@ class Persone
      */
     private $id;
 
+//    /**
+//     * @var Gruppi
+//     *
+//     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Gruppi",inversedBy="elencoPersone")
+//     * @ORM\JoinColumns({
+//     *   @ORM\JoinColumn(name="id_gruppo", referencedColumnName="id")
+//     * })
+//     */
+
     /**
      * @var Gruppi
-     *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Gruppi",inversedBy="elencoPersone")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_gruppo", referencedColumnName="id")
-     * })
+     * @ORM\JoinColumn(name="id_gruppo", referencedColumnName="id")
      */
     private $idGruppo;
 
@@ -236,7 +242,6 @@ class Persone
     {
         return $this->idSquadra;
     }
-
     /**
      * @param Squadre $idSquadra
      */
@@ -244,10 +249,5 @@ class Persone
     {
         $this->idSquadra = $idSquadra;
     }
-
-
-
-
-
 }
 

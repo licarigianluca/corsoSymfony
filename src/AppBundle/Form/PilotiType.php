@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints\Regex;
 use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 
 
-class PersoneType extends AbstractType
+class PilotiType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -23,27 +23,28 @@ class PersoneType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-//            ->add('idGruppo', EntityType::class, array(
-//                'class' => 'AppBundle:Gruppi',
-//                'choice_label' => 'descrizione',
-//                'placeholder' => 'selezionare un gruppo',
-//                'constraints' => new NotNull(array('message' => 'campo obbligatorio'))))
-            ->add('idGruppo', Select2EntityType::class, [
-                'multiple' => false,
-                'remote_route' => 'select2_gruppi',
-                'class' => 'AppBundle\Entity\Gruppi',
-                'primary_key' => 'id',
-                'text_property' => 'descrizione',
-                'minimum_input_length' => 2,
-                'page_limit' => 10,
-                'allow_clear' => true,
-                'delay' => 250,
-                'cache' => true,
-                'cache_timeout' => 60000, // if 'cache' is true
-                'language' => 'en',
-                'placeholder' => 'Seleziona un gruppo',
-                // 'em' => $entityManager, // inject a custom entity manager
-            ])
+            ->add('idGruppo', EntityType::class, array(
+                'class' => 'AppBundle:Gruppi',
+                'choice_label' => 'descrizione',
+                'placeholder' => 'selezionare un gruppo'
+//                ,'constraints' => new NotNull(array('message' => 'campo obbligatorio'))
+                ))
+
+//            ->add('idGruppo', Select2EntityType::class, [
+//                'multiple' => false,
+//                'remote_route' => 'select2_gruppi',
+//                'class' => 'AppBundle\Entity\Gruppi',
+//                'primary_key' => 'id',
+//                'text_property' => 'descrizione',
+//                'minimum_input_length' => 2,
+//                'page_limit' => 10,
+//                'allow_clear' => true,
+//                'delay' => 250,
+//                'cache' => true,
+//                'cache_timeout' => 60000, // if 'cache' is true
+//                'language' => 'it',
+//                'placeholder' => 'Seleziona un gruppo',
+//            ])
             ->add('nome')
             ->add('cognome')
             ->add('dataNascita', DateType::class, array(
@@ -68,21 +69,27 @@ class PersoneType extends AbstractType
                         'pattern' => '/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/'
                     )
                 )))
-            ->add('idSquadra', Select2EntityType::class, [
-                'multiple' => false,
-                'remote_route' => 'select2_squadre',
-                'class' => 'AppBundle\Entity\Squadre',
-                'primary_key' => 'id',
-                'text_property' => 'nome',
-                'minimum_input_length' => 3,
-                'page_limit' => 10,
-                'allow_clear' => true,
-                'delay' => 250,
-                'cache' => true,
-                'cache_timeout' => 60000, // if 'cache' is true
-                'language' => 'it',
-                'placeholder' => 'Seleziona una squadra',
-            ])        ;
+            ->add('idSquadra', EntityType::class, array(
+                'class' => 'AppBundle:Squadre',
+                'choice_label' => 'nome',
+                'placeholder' => 'selezionare una squadra',
+                'constraints' => new NotNull(array('message' => 'campo obbligatorio'))))
+//            ->add('idSquadra', Select2EntityType::class, [
+//                'multiple' => false,
+//                'remote_route' => 'select2_squadre',
+//                'class' => 'AppBundle\Entity\Squadre',
+//                'primary_key' => 'id',
+//                'text_property' => 'nome',
+//                'minimum_input_length' => 3,
+//                'page_limit' => 10,
+//                'allow_clear' => true,
+//                'delay' => 250,
+//                'cache' => true,
+//                'cache_timeout' => 60000, // if 'cache' is true
+//                'language' => 'it',
+//                'placeholder' => 'Seleziona una squadra',
+//            ])
+        ;
     }
 
     /**

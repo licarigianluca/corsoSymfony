@@ -1,10 +1,7 @@
 <div class="row">
     <div class="col-sm-12">
-
-
         <div class="row">
             <div class="col-sm-12">
-
                 <table class="table table-bordered table-striped">
                     <thead>
                     <tr>
@@ -14,6 +11,7 @@
                         <th>CF</th>
                         <th>email</th>
                         <th>Gruppo</th>
+                        <th>Squadra</th>
                         <th>Azioni</th>
                     </tr>
                     </thead>
@@ -26,43 +24,36 @@
                             <td>{{ persona.dataNascita | date('d/m/Y') }}</td>
                             <td>{{ persona.codiceFiscale }}</td>
                             <td>{{ persona.email }}</td>
-
                             <td>{% if persona.idGruppo !=null %}
                                     <a href="#"
-
                                        onclick="loadFormIntoModal(Routing.generate('gruppi_edit',{id:{{ persona.idGruppo.id }}}));"
-
-
                                     >{{ persona.idGruppo.descrizione }} </a>
-
                                     <br># {{  persona.idGruppo.elencoPersone | length}}
-                                    {#<br>elenco:<br>#}
-
-
+                                {% endif %}
+                            </td>
+                            <td>{% if persona.idSquadra !=null %}
+                                    {#<a href="#"#}
+                                       {#onclick="loadFormIntoModal(Routing.generate('squadre_edit',{id:{{ persona.idSquadra.id }}}));"#}
+                                    {#>#}
+                                        {{ persona.idSquadra.nome }}
+                                    {#</a>#}
+                                    <br># {{  persona.idSquadra.elencoPersone | length}}
                                 {% endif %}
                             </td>
                             <td>
                                 <ul>
-
                                     <li>
                                         <a href="#"
-
                                            onclick="loadFormIntoModal(Routing.generate('persone_edit',{id:{{ persona.id }}}));"
-
-
                                         >edit</a>
                                     </li>
                                     <li>
                                         <a href="#"
-
                                            onclick="loadConfirmModal(Routing.generate('persone_delete',{id:{{ persona.id }}}))"
-
-
                                         >cancella</a>
                                     </li>
                                 </ul>
                             </td>
-
                         </tr>
                     {% endfor %}
                     </tbody>

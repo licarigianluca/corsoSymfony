@@ -119,24 +119,13 @@ class PersoneController extends Controller
      */
     public function editAction(Request $request, Persone $persone)
     {
-
-//        $form = $this->createForm('AppBundle\Form\PersoneType', $persone);
-
-
         $form = $this->createForm('AppBundle\Form\PersoneType', $persone, array(
             'action' => $this->generateUrl('persone_edit', array('id' => $persone->getId()))));
-
-
         $form->handleRequest($request);
-
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
-
-                /* @var $em \Doctrine\ORM\EntityManager */
                 $em = $this->getDoctrine()->getManager();
-
                 $em->flush($persone);
-
                 return $this->redirect($this->generateUrl('persone_index'));
             } else {
                 return new Response(
@@ -147,7 +136,6 @@ class PersoneController extends Controller
                     , 409);
             }
         }
-
         return $this->render('persone/edit.html.twig', array(
             'persone' => $persone,
             'form' => $form->createView(),
