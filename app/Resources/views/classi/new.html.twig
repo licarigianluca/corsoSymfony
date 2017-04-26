@@ -1,0 +1,52 @@
+{{ form_start(form) }}
+<div class="row">
+    <div class="col-xs-4 col-md-4">
+        {{ form_row(form.nome) }}
+    </div>
+    <div class="col-xs-4 col-md-4">
+        {{ form_row(form.descrizione) }}
+    </div>
+
+
+
+    <div class="col-md-6">
+        {% form_theme form 'TetranzSelect2EntityBundle:Form:fields.html.twig' %}
+        {#{{ form_row(form.elencoPersone) }}#}
+        <table id="myTable" class="table table-bordered table-striped"
+               data-prototype="{%  include ':classi/Prototype:elencoStudenti.html.twig' %}" >
+            <thead>
+            <tr>
+                <th>Nome e cognome</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {#{{ form_row(form.elencoPersone) }}#}
+            {% for s in form.elencoStudenti %}
+
+                <tr>
+                    <td>{{ form_widget(s.nome) }}</td>
+                    <td>{{ form_widget(s.cognome) }}</td>
+                </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-md-2">
+        <button class="btn btn-default add "
+                onclick="addPrototype('#myTable');"
+                type="button" aria-label="Nuova scheda">
+            <span class="glyphicon glyphicon-plus"></span>
+        </button>
+    </div>
+
+
+
+
+</div>
+
+
+{{ form_row(form._token) }}
+<script src="{{ asset('bundles/tetranzselect2entity/js/select2entity.js') }}"></script>

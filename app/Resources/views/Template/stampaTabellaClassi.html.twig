@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Descrizione</th>
+                        <th>Azioni</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for classe in classi %}
+                        <tr>
+                            <td>{{ classe.nome }}</td>
+                            <td>{{ classe.descrizione }}</td>
+                            {#<td>{% if studente.idClasse !=null %}#}
+                                    {#<a href="#"#}
+                                       {#onclick="loadFormIntoModal(Routing.generate('classi_edit',{id:{{ studente.idClasse.id }}}));"#}
+                                    {#>{{ studente.idClasse.nome }} </a>#}
+                                    {#<br># {{  studente.idClasse.elencoStudenti | length}}#}
+                                {#{% endif %}#}
+                            {#</td>#}
+
+                            <td>
+                                <ul>
+                                    <li>
+                                        <a href="#"
+                                           onclick="loadFormIntoModal(Routing.generate('classi_edit',{id:{{ classe.id }}}));"
+                                        >edit</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"
+                                           onclick="loadConfirmModal(Routing.generate('classi_delete',{id:{{ classe.id }}}))"
+                                        >cancella</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

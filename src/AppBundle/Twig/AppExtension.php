@@ -24,7 +24,9 @@ class AppExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'printTable' => new \Twig_SimpleFunction('stampaTabella', array($this, 'stampaTabella'),array('needs_environment' => true, 'is_safe' => array('html')))
+            'printTable' => new \Twig_SimpleFunction('stampaTabella', array($this, 'stampaTabella'),array('needs_environment' => true, 'is_safe' => array('html'))),
+            'printTableStudents' => new \Twig_SimpleFunction('stampaTabellaStudenti', array($this, 'stampaTabellaStudenti'),array('needs_environment' => true, 'is_safe' => array('html'))),
+            'printTableClasses' => new \Twig_SimpleFunction('stampaTabellaClassi', array($this, 'stampaTabellaClassi'),array('needs_environment' => true, 'is_safe' => array('html')))
 
 
         );
@@ -57,8 +59,15 @@ class AppExtension extends \Twig_Extension
         return $env->render(":Template:stampaTabella.html.twig",array('persone' => $persone));
     }
 
+    public function stampaTabellaStudenti(Twig_Environment $env,$studenti){
 
+        return $env->render(":Template:stampaTabellaStudenti.html.twig",array('studenti' => $studenti));
+    }
 
+    public function stampaTabellaClassi(Twig_Environment $env,$classi){
+
+        return $env->render(":Template:stampaTabellaClassi.html.twig",array('classi' => $classi));
+    }
 
     public function getName()
     {

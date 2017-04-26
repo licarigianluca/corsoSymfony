@@ -52,7 +52,7 @@
             <script>
                 $(document).ready(function(){
 
-
+                    {#{{ dump(app.request.get('_route')) }}#}
                     init('{{ app.request.get('_route') }}');
 
                 })

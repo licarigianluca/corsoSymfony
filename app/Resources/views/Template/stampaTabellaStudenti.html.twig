@@ -1,0 +1,56 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Cognome</th>
+                        <th>Data Nascita</th>
+                        <th>CF</th>
+                        <th>email</th>
+                        <th>matricola</th>
+                        <th>Classe</th>
+                        <th>Azioni</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for studente in studenti %}
+                        <tr>
+                            <td>{{ studente.nome }}</td>
+                            <td>{{ studente.cognome }}</td>
+                            <td>{{ studente.dataNascita | date('d/m/Y') }}</td>
+                            <td>{{ studente.codiceFiscale }}</td>
+                            <td>{{ studente.email }}</td>
+                            <td>{{ studente.matricola }}</td>
+                            <td>{% if studente.idClasse !=null %}
+                                    <a href="#"
+                                       onclick="loadFormIntoModal(Routing.generate('classi_edit',{id:{{ studente.idClasse.id }}}));"
+                                    >{{ studente.idClasse.nome }} </a>
+                                    <br># {{  studente.idClasse.elencoStudenti | length}}
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                <ul>
+                                    <li>
+                                        <a href="#"
+                                           onclick="loadFormIntoModal(Routing.generate('studenti_edit',{id:{{ studente.id }}}));"
+                                        >edit</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"
+                                           onclick="loadConfirmModal(Routing.generate('studenti_delete',{id:{{ studente.id }}}))"
+                                        >cancella</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

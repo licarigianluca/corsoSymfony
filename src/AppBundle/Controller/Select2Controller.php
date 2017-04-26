@@ -22,6 +22,37 @@ class Select2Controller extends Controller
 {
 
     /**
+     * @Route("/classi", name="select2_classi")
+     * @Method("GET")
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response|static
+     */
+    public function classiAction(Request $request)
+    {
+        $termine = strtolower($request->query->get('q'));
+        $data = [];
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->createQueryBuilder();
+        $query = $qb->select('c')
+            ->from('AppBundle:Classi', 'c')
+            ->where('UPPER(c.nome) LIKE UPPER(:nome)')
+            ->setParameter('nome', '%' . $termine . '%')
+            ->getQuery();
+        $classi = $query->getResult();
+        /**
+         *
+         * @var  $gruppo Gruppi
+         */
+        foreach ($classi as $key => $classe) {
+            if (strpos(strtolower($classe->getNome()), $termine) >= 0) {
+                $data[] = ['id' => $classe->getId(), 'text' => $classe->getNome()];
+            }
+        }
+        return JsonResponse::create($data);
+    }
+
+    /**
      * @Route("/gruppi", name="select2_gruppi")
      * @Method("GET")
      *
