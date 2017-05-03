@@ -142,4 +142,37 @@ class Select2Controller extends Controller
         }
         return JsonResponse::create($data);
     }
+
+
+    /**
+     * @Route("/studenti", name="select2_studenti")
+     * @Method("GET")
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response|static
+     */
+    public function studentiAction(Request $request)
+    {
+        $termine = strtolower($request->query->get('q'));
+        $data = [];
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->createQueryBuilder();
+        $query = $qb->select('s')
+            ->from('AppBundle:Studenti', 's')
+            ->where('UPPER(s.cognome) LIKE UPPER(:cognome)')
+            ->andWhere('s.idClasse is null')
+            ->setParameter('cognome', '%' . $termine . '%')
+            ->getQuery();
+        $studenti = $query->getResult();
+        /**
+         *
+         * @var  $persona Persone
+         */
+        foreach ($studenti as $key => $studente) {
+            if (strpos(strtolower($studente->getCognome()), $termine) >= 0) {
+                $data[] = ['id' => $studente->getId(), 'text' => $studente->getDescrizione()];
+            }
+        }
+        return JsonResponse::create($data);
+    }
 }

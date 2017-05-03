@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Classi;
+use AppBundle\Entity\Studenti;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -82,6 +84,63 @@ class ClassiController extends Controller
         }
 
         return $this->render('classi/new.html.twig', array(
+            'classi' => $classi,
+            'form' => $form->createView(),
+        ));
+    }
+
+    /**
+     * Creates a new classi entity.
+     *
+     * @Route("/new2", name="classi_new_2",options={"expose"=true})
+     * @Method({"GET", "POST"})
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
+    public function newAction2(Request $request)
+    {
+        $classi = new Classi();
+
+        $form = $this->createForm('AppBundle\Form\Classi2Type', $classi, array(
+            'action' => $this->generateUrl('classi_new_2')));
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+
+                $em = $this->getDoctrine()->getManager();
+
+                $studenti = new ArrayCollection();
+
+                foreach ($classi->getElencoStudenti() as $studente){
+                    $temp = $em->getRepository('AppBundle:Studenti')->find($studente->getId());
+                    $studenti->add($temp);
+                }
+
+                $em->persist($classi);
+                $em->flush($classi);
+                $em->refresh($classi);
+
+                $studente = null;
+                foreach ($studenti as $studente){
+
+                    $studente->setIdClasse($classi);
+                }
+                $em->flush();
+                return $this->redirect($this->generateUrl('classi_index'));
+            } else {
+                return new Response(
+                    $this->renderView(':classi:new2.html.twig', array(
+                        'classi' => $classi,
+                        'form' => $form->createView()
+                    ))
+                    , 409);
+            }
+        }
+
+        return $this->render('classi/new2.html.twig', array(
             'classi' => $classi,
             'form' => $form->createView(),
         ));

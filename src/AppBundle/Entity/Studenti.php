@@ -192,6 +192,14 @@ class Studenti
     }
 
     /**
+     * @return string
+     */
+    public function getDescrizione()
+    {
+        return $this->matricola." ".$this->cognome." ".$this->nome;
+    }
+
+    /**
      * @param string $matricola
      */
     public function setMatricola($matricola)

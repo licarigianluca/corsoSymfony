@@ -54,24 +54,24 @@ class Classi
 
     public function __construct()
     {
-        $this->elencoPersone = new ArrayCollection();
+        $this->elencoStudenti = new ArrayCollection();
 
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getElencoPersone()
+    public function getElencoStudenti()
     {
-        return $this->elencoPersone;
+        return $this->elencoStudenti;
     }
 
     /**
-     * @param ArrayCollection $elencoPersone
+     * @param ArrayCollection $elencoStudenti
      */
-    public function setElencoPersone($elencoPersone)
+    public function setElencoStudenti($elencoStudenti)
     {
-        $this->elencoPersone = $elencoPersone;
+        $this->elencoStudenti = $elencoStudenti;
     }
 
     /**
@@ -121,24 +121,5 @@ class Classi
     {
         $this->nome = $nome;
     }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getElencoStudenti()
-    {
-        return $this->elencoStudenti;
-    }
-
-    /**
-     * @param ArrayCollection $elencoStudenti
-     */
-    public function setElencoStudenti($elencoStudenti)
-    {
-        $this->elencoStudenti = $elencoStudenti;
-    }
-
-
-
 
 }
