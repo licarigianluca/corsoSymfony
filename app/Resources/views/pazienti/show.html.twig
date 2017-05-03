@@ -1,0 +1,40 @@
+{#{% extends 'base.html.twig' %}#}
+
+{% block body %}
+    <h1>Pazienti</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ pazienti.id }}</td>
+            </tr>
+            <tr>
+                <th>Nome</th>
+                <td>{{ pazienti.nome }}</td>
+            </tr>
+            <tr>
+                <th>Cognome</th>
+                <td>{{ pazienti.cognome }}</td>
+            </tr>
+            <tr>
+                <th>Datanascita</th>
+                <td>{% if pazienti.dataNascita %}{{ pazienti.dataNascita|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('pazienti_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('pazienti_edit', { 'id': pazienti.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

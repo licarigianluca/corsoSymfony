@@ -1,0 +1,43 @@
+
+
+{% block body %}
+    <h1>Richiestes list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Codice</th>
+                <th>Descrizione</th>
+                <th>Datarichiesta</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for richieste in richiestes %}
+            <tr>
+                <td><a href="{{ path('richieste_show', { 'id': richieste.id }) }}">{{ richieste.id }}</a></td>
+                <td>{{ richieste.codice }}</td>
+                <td>{{ richieste.descrizione }}</td>
+                <td>{% if richieste.dataRichiesta %}{{ richieste.dataRichiesta|date('Y-m-d') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('richieste_show', { 'id': richieste.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('richieste_edit', { 'id': richieste.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('richieste_new') }}">Create a new richieste</a>
+        </li>
+    </ul>
+{% endblock %}

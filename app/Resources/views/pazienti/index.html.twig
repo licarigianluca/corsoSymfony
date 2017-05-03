@@ -1,0 +1,43 @@
+{#{% extends 'base.html.twig' %}#}
+
+{% block body %}
+    <h1>Pazientis list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Cognome</th>
+                <th>Datanascita</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for pazienti in pazientis %}
+            <tr>
+                <td><a href="{{ path('pazienti_show', { 'id': pazienti.id }) }}">{{ pazienti.id }}</a></td>
+                <td>{{ pazienti.nome }}</td>
+                <td>{{ pazienti.cognome }}</td>
+                <td>{% if pazienti.dataNascita %}{{ pazienti.dataNascita|date('Y-m-d') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('pazienti_show', { 'id': pazienti.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('pazienti_edit', { 'id': pazienti.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('pazienti_new') }}">Create a new pazienti</a>
+        </li>
+    </ul>
+{% endblock %}
