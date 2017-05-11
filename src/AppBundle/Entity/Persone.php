@@ -67,21 +67,21 @@ class Persone
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dataNascita", type="date")
+     * @ORM\Column(name="dataNascita", type="date",  nullable=true)
      */
     private $dataNascita;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="codiceFiscale", type="string", length=16, unique=true)
+     * @ORM\Column(name="codiceFiscale", type="string", length=16, nullable=true)
      */
     private $codiceFiscale;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=40 )
+     * @ORM\Column(name="email", type="string", length=40, nullable=true )
      */
     private $email;
 
@@ -154,6 +154,17 @@ class Persone
     {
         return $this->cognome;
     }
+
+    /**
+     * Get cognome
+     *
+     * @return string
+     */
+    public function getDescrizione()
+    {
+        return $this->cognome.' '.$this->nome.' '.$this->codiceFiscale;
+    }
+
 
     /**
      * Set dataNascita

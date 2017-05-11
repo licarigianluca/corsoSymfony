@@ -93,13 +93,13 @@ class Gruppi
         return $this->elencoPersone;
     }
 
-//    /**
-//     * @param ArrayCollection $elencoPersone
-//     */
-//    public function setElencoPersone($elencoPersone)
-//    {
-//        $this->elencoPersone = $elencoPersone;
-//    }
+    /**
+     * @param ArrayCollection $elencoPersone
+     */
+    public function setElencoPersone($elencoPersone)
+    {
+        $this->elencoPersone = $elencoPersone;
+    }
 
 
 

@@ -25,6 +25,115 @@ class GruppiController extends Controller
 {
 
     /**
+     * Lists all squadre entities.
+     *
+     * @Route("/", name="gruppi_init",options={"expose"=true})
+     * @Method("GET")
+     */
+    public function initAction()
+    {
+        return $this->render('base.html.twig');
+    }
+    /**
+     * Lists all squadre entities.
+     *
+     * @Route("/index", name="gruppi_index",options={"expose"=true})
+     * @Method("GET")
+     */
+    public function indexAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $gruppi = $em->getRepository('AppBundle:Gruppi')->findAll();
+        return $this->render(':gruppi:index.html.twig', array(
+            'gruppi' => $gruppi,
+        ));
+    }
+
+    /**
+     * Creates a new gruppi entity.
+     *
+     * @Route("/new", name="gruppi_new",options={"expose"=true})
+     * @Method({"GET", "POST"})
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
+    public function newAction(Request $request)
+    {
+        $gruppi = new Gruppi();
+
+        $form = $this->createForm('AppBundle\Form\GruppiType', $gruppi, array(
+            'action' => $this->generateUrl('gruppi_new')));
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($gruppi);
+                $em->flush($gruppi);
+
+                return $this->redirect($this->generateUrl('gruppi_index'));
+            } else {
+                return new Response(
+                    $this->renderView(':gruppi:new.html.twig', array(
+                        'gruppi' => $gruppi,
+                        'form' => $form->createView()
+                    ))
+                    , 409);
+            }
+        }
+
+        return $this->render('gruppi/new.html.twig', array(
+            'gruppi' => $gruppi,
+            'form' => $form->createView(),
+        ));
+    }
+
+    /**
+     * Creates a new gruppi entity.
+     *
+     * @Route("/new_2", name="gruppi_new_2",options={"expose"=true})
+     * @Method({"GET", "POST"})
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
+    public function new2Action(Request $request)
+    {
+        $gruppi = new Gruppi();
+
+        $form = $this->createForm('AppBundle\Form\Gruppi2Type', $gruppi, array(
+            'action' => $this->generateUrl('gruppi_new_2')));
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($gruppi);
+                $em->flush($gruppi);
+
+                return $this->redirect($this->generateUrl('gruppi_index'));
+            } else {
+                return new Response(
+                    $this->renderView(':gruppi:new2.html.twig', array(
+                        'gruppi' => $gruppi,
+                        'form' => $form->createView()
+                    ))
+                    , 409);
+            }
+        }
+
+        return $this->render('gruppi/new2.html.twig', array(
+            'gruppi' => $gruppi,
+            'form' => $form->createView(),
+        ));
+    }
+
+    /**
      * Displays a form to edit an existing persone entity.
      * @Route("/{id}/edit", name="gruppi_edit",options={"expose"=true})
      * @Method({"GET", "POST"})

@@ -44,8 +44,14 @@ class PersoneType extends AbstractType
                 'placeholder' => 'Seleziona un gruppo',
                 // 'em' => $entityManager, // inject a custom entity manager
             ])
-            ->add('nome')
-            ->add('cognome')
+            ->add('nome',TextType::class, array(
+                        'label' => 'Nome',
+                        'constraints' => new NotNull(array('message' => 'campo obbligatorio'))
+                    ))
+            ->add('cognome', TextType::class, array(
+                'label' => 'Cognome',
+                'constraints' => new NotNull(array('message' => 'campo obbligatorio'))
+            ))
             ->add('dataNascita', DateType::class, array(
                 'input' => 'datetime',
                 'widget' => 'single_text',

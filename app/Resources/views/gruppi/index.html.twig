@@ -1,0 +1,65 @@
+<h1>Gruppi list</h1>
+{#<div class="panel-body">
+    {{ stampaTabella(persones) }}#}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>Descrizione</th>
+                            <th>Azione</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {#{{ dump() }}#}
+                        {% for gruppo in gruppi %}
+                            <tr>
+                                <td>{{ gruppo.descrizione }}</td>
+                                {#<td>#}
+                                    {#{% if pippe.idSquadra !=null %}#}
+                                        {#<a href="#"#}
+                                           {#onclick="loadFormIntoModal(Routing.generate('squadre_edit',{id:{{ pippe.id }}}));"#}
+                                        {#>{{ pippe.descrizione }} </a>#}
+                                        {#<br># {{  pippe.idSquadra.elencoPersone | length}}#}
+                                    {#{% endif %}#}
+                                {#</td>#}
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <a href="#"
+                                               onclick="loadFormIntoModal(Routing.generate('gruppi_edit',{id:{{ gruppo.id }}}));"
+                                            >Modifica</a>
+                                        </li>
+                                        {#<li>#}
+                                            {#<a href="#"#}
+                                               {#onclick="loadConfirmModal(Routing.generate('persone_delete',{id:{{ persona.id }}}))"#}
+                                            {#>cancella</a>#}
+                                        {#</li>#}
+                                    </ul>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ul>
+    <li>
+        <a href="#"
+           onclick="loadFormIntoModal(Routing.generate('gruppi_new'));"
+        >Nuovo</a>
+    </li>
+
+    <li>
+        <a href="#"
+           onclick="loadFormIntoModal(Routing.generate('gruppi_new_2'));"
+        >Nuovo 2</a>
+    </li>
+</ul>
+
+

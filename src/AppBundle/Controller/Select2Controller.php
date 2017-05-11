@@ -108,7 +108,7 @@ class Select2Controller extends Controller
          */
         foreach ($persone as $key => $persona) {
             if (strpos(strtolower($persona->getCognome()), $termine) >= 0) {
-                $data[] = ['id' => $persona->getId(), 'text' => $persona->getPersone()];
+                $data[] = ['id' => $persona->getId(), 'text' => $persona->getDescrizione()];
             }
         }
         return JsonResponse::create($data);
